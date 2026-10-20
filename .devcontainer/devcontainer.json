@@ -1,0 +1,38 @@
+{
+  "name": "Moodle 5.3 Dev",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "webserver",
+  "workspaceFolder": "/var/www/html",
+
+  "forwardPorts": [8000, 5432],
+  "portsAttributes": {
+    "8000": { "label": "Moodle web", "onAutoForward": "openBrowser" },
+    "5432": { "label": "PostgreSQL" }
+  },
+
+  "postCreateCommand": "bash /var/www/html/.devcontainer/postCreate.sh",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "bmewburn.vscode-intelephense-client",
+        "xdebug.php-debug",
+        "cweijan.vscode-postgresql-client2",
+        "mikestead.dotenv",
+        "editorconfig.editorconfig",
+        "github.vscode-pull-request-github"
+      ],
+      "settings": {
+        "php.validate.executablePath": "/usr/local/bin/php",
+        "intelephense.environment.phpVersion": "8.3.0",
+        "intelephense.files.exclude": [
+          "**/.git/**",
+          "**/node_modules/**",
+          "**/moodledata/**"
+        ]
+      }
+    }
+  },
+
+  "remoteUser": "root"
+}

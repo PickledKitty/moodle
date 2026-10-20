@@ -1,0 +1,45 @@
+services:
+  webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/var/www/html:cached
+      - moodledata:/var/moodledata
+    environment:
+      MOODLE_DOCKER_WWWROOT: /var/www/html
+      MOODLE_DOCKER_RUNNING: "1"
+    ports:
+      - "8000:80"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - moodle
+
+  db:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: moodle
+      POSTGRES_PASSWORD: moodle
+      POSTGRES_DB: moodle
+    volumes:
+      # postgres 18+ images keep data under /var/lib/postgresql/18/docker and
+      # refuse to start if a volume is mounted at the old .../data path.
+      - pgdata:/var/lib/postgresql
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U moodle"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    networks:
+      - moodle
+
+volumes:
+  moodledata:
+  pgdata:
+
+networks:
+  moodle:
