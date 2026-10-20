@@ -22,6 +22,9 @@ fi
 echo "==> Installing Composer dependencies..."
 composer install --no-interaction
 
+echo "==> Installing npm dependencies..."
+npm ci
+
 echo "==> Fixing moodledata permissions..."
 chown -R www-data:www-data /var/moodledata
 

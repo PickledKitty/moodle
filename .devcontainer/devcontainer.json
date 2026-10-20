@@ -4,6 +4,11 @@
   "service": "webserver",
   "workspaceFolder": "/var/www/html",
 
+  // Node 22 is required by Moodle's package.json (">=22.11.0 <23") for grunt builds.
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": { "version": "22" }
+  },
+
   "forwardPorts": [8000, 5432],
   "portsAttributes": {
     "8000": { "label": "Moodle web", "onAutoForward": "openBrowser" },
