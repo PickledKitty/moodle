@@ -14,6 +14,7 @@ if [ -n "$CODESPACE_NAME" ]; then
   WWWROOT="https://${CODESPACE_NAME}-8000.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
   sed -i "s#http://localhost:8000#${WWWROOT}#" config.php
   sed -i "s#^\$CFG->sslproxy.*#\$CFG->sslproxy  = true;#" config.php
+  sed -i "s#^\$CFG->reverseproxy.*#\$CFG->reverseproxy = true;#" config.php
 else
   WWWROOT="http://localhost:8000"
 fi
@@ -30,7 +31,7 @@ if php admin/cli/install_database.php \
   --fullname="Moodle Dev" \
   --shortname="moodle_dev" \
   --adminpass="${MOODLE_ADMIN_PASS:-Admin1234!}" \
-  --adminemail="admin@example.com"; then
+  --adminemail="null"; then
   echo "    Database installed."
 else
   echo "    (install_database.php failed — normal if the DB is already installed; otherwise check output above)"

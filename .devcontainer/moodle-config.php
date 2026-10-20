@@ -17,6 +17,7 @@ $CFG->dboptions = [
 
 $CFG->wwwroot   = 'http://localhost:8000';  // Rewritten by postCreate.sh in Codespaces.
 $CFG->sslproxy  = false;                    // Set to true by postCreate.sh in Codespaces.
+$CFG->reverseproxy = false;                 // Set to true by postCreate.sh in Codespaces.
 $CFG->dataroot  = '/var/moodledata';
 $CFG->admin     = 'admin';
 $CFG->directorypermissions = 0777;
